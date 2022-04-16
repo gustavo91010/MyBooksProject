@@ -49,6 +49,13 @@
 
 		</dependency>
 		
+		<dependency>
+			<groupId>com.github.dozermapper</groupId>
+			<artifactId>dozer-core</artifactId>
+			<version>6.4.1</version>
+		
+		</dependency>
+		
 	</dependencies>
 
 	<build>

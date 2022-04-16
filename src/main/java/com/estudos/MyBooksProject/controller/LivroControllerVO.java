@@ -10,59 +10,60 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.estudos.MyBooksProject.entity.Livro;
-import com.estudos.MyBooksProject.service.LivroService;
+import com.estudos.MyBooksProject.entity.LivroVO;
+import com.estudos.MyBooksProject.service.LivroServiceVO;
 
-//@RestController
-@RequestMapping("/livro")
-public class LivroController {
 
+@RestController
+@RequestMapping("/LivroVO")
+public class LivroControllerVO {
+	
 	@Autowired
-	private LivroService service;
-	private Livro livro;
+	private LivroServiceVO service;
+	private LivroVO LivroVO;
 
 	@RequestMapping(method = RequestMethod.POST, 
 			consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public Livro create(@RequestBody Livro livro) {
-		return service.create(livro);
+	public LivroVO create(@RequestBody LivroVO LivroVO) {
+		return service.create(LivroVO);
 	}
 	@RequestMapping(value = "/{id}",
 			method = RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public Livro findById(@PathVariable("id") long id) {
+	public LivroVO findById(@PathVariable("id") long id) {
 		return service.findById(id);
 
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Livro> findAll() {
+	public List<LivroVO> findAll() {
 		return service.findAll();
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT, 
 			consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public Livro update(@RequestBody Livro livro) {
-		return service.update(livro);
+	public LivroVO update(@RequestBody LivroVO LivroVO) {
+//		 livro= LivroVO;
+		return service.update(LivroVO);
 	}
 
 	@RequestMapping(value = "/delete/{id}",
 			method = RequestMethod.DELETE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public Livro delete(@PathVariable("id") long id) {
-		livro= service.delete(id);
-		return livro;
+	public LivroVO delete(@PathVariable("id") long id) {
+		LivroVO= service.delete(id);
+		return LivroVO;
 	}
-	@RequestMapping(value = "/title/{title}",
-			
-			method = RequestMethod.GET,
-			produces = MediaType.APPLICATION_JSON_VALUE)
-	public Livro findByTitle(@PathVariable("titulo") String titulo) {
-		livro=service.findByTitle(titulo);
-		return livro;
-	}
+//	@RequestMapping(value = "/title/{title}",
+//			
+//			method = RequestMethod.GET,
+//			produces = MediaType.APPLICATION_JSON_VALUE)
+//	public LivroVO findByTitle(@PathVariable("titulo") String titulo) {
+//		LivroVO=service.findByTitle(titulo);
+//		return LivroVO;
+//	}
 
-	
 }
