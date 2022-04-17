@@ -4,7 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,49 +17,38 @@ import org.springframework.web.bind.annotation.RestController;
 import com.estudos.MyBooksProject.entity.LivroVO;
 import com.estudos.MyBooksProject.service.LivroServiceVO;
 
-
 @RestController
 @RequestMapping("/livroVO")
 public class LivroControllerVO {
-	
+
 	@Autowired
 	private LivroServiceVO service;
-	private LivroVO LivroVO;
 
-	@RequestMapping(method = RequestMethod.POST, 
-			consumes = MediaType.APPLICATION_JSON_VALUE, 
-			produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping
 	public LivroVO create(@RequestBody LivroVO LivroVO) {
 		return service.create(LivroVO);
 	}
-	@RequestMapping(value = "/{id}",
-			method = RequestMethod.GET, 
-			produces = MediaType.APPLICATION_JSON_VALUE)
+
+	@GetMapping("/{id}")
 	public LivroVO findById(@PathVariable("id") long id) {
 		return service.findById(id);
 
 	}
-	
-	@RequestMapping(method = RequestMethod.GET, 
-			produces = MediaType.APPLICATION_JSON_VALUE)
+
+	@GetMapping
 	public List<LivroVO> findAll() {
 		return service.findAll();
 	}
-	
-	@RequestMapping(method = RequestMethod.PUT, 
-			consumes = MediaType.APPLICATION_JSON_VALUE, 
-			produces = MediaType.APPLICATION_JSON_VALUE)
+
+	@PutMapping
 	public LivroVO update(@RequestBody LivroVO LivroVO) {
-//		 livro= LivroVO;
 		return service.update(LivroVO);
 	}
 
-	@RequestMapping(value = "/delete/{id}",
-			method = RequestMethod.DELETE, 
-			produces = MediaType.APPLICATION_JSON_VALUE)
+	@DeleteMapping("/{id}")
 	public LivroVO delete(@PathVariable("id") long id) {
-		LivroVO= service.delete(id);
-		return LivroVO;
+		LivroVO livroVO = service.delete(id);
+		return livroVO;
 	}
 //	@RequestMapping(value = "/title/{title}",
 //			
