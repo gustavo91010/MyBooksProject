@@ -24,7 +24,7 @@ String nome= "nome";
 		livro.setSubCategoria("test " + ex);
 		livro.setNotas("test " + ex);
 		livro.setImage("test " + ex);
-		livro.setCriacao(new Date());
+		livro.setCompra(new Date());
 		livro.setRegistro(new Date());
 
 		return livro;

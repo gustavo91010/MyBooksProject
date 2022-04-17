@@ -50,7 +50,7 @@ public class LivroService implements Serializable {
 		entity.setNotas(livro.getNotas());
 		entity.setImage(livro.getImage());
 		entity.setEditora(livro.getEditora());
-		entity.setCriacao(livro.getCriacao());
+		entity.setCompra(livro.getCompra());
 		entity.setRegistro(livro.getRegistro());
 		
 		return repository.save(entity);

@@ -1,7 +1,6 @@
 package com.estudos.MyBooksProject.service;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,8 +61,9 @@ public class LivroServiceVO implements Serializable{
 		entity.setNotas(livroVO.getNotas());
 		entity.setImage(livroVO.getImage());
 		entity.setEditora(livroVO.getEditora());
-		entity.setCriacao(livroVO.getCriacao());
+		entity.setCompra(livroVO.getCompra());
 		entity.setRegistro(livroVO.getRegistro());
+		entity.setColecao(livroVO.getColecao());
 		// convertendo meu Lirvo(entity) para o VO
 			livroVO= DozerConverter.parseObject(repository.save(entity), LivroVO.class);
 		

@@ -20,22 +20,29 @@ public class Livro {
 	
 	@Column(nullable = false)
 	private String titulo;
+	
 	@Column(nullable = false)
 	private String autor;
+	
 	@Column(nullable = false)
 	private String editora;
+	
 	@Column(nullable = false)
 	private String categoria;
+	
 	@Column
 	private String subCategoria;
 	@Column
 	private String notas;
 	@Column
 	private String image;
-	@Column(nullable = false)
-	private Date criacao;
+	@Column
+	private Date compra;
+	
 	@Column
 	private Date registro;
+	@Column
+	private String colecao;
 	
 //	@RequestMapping("/test")
 //	public String test() {
@@ -47,7 +54,7 @@ public class Livro {
 	
 	
 	public Livro(String titulo, String autor, String editora, String categoria, String subCategoria, String notas,
-			String image, Date criacao, Date registro) {
+			String image, Date compra, Date registro, String colecao) {
 		this.titulo = titulo;
 		this.autor = autor;
 		this.editora = editora;
@@ -55,8 +62,9 @@ public class Livro {
 		this.subCategoria = subCategoria;
 		this.notas = notas;
 		this.image = image;
-		this.criacao = criacao;
+		this.compra = compra;
 		this.registro = registro;
+		this.colecao= colecao;
 	}
 
 
@@ -108,11 +116,11 @@ public class Livro {
 	public void setImage(String image) {
 		this.image = image;
 	}
-	public Date getCriacao() {
-		return criacao;
+	public Date getCompra() {
+		return compra;
 	}
-	public void setCriacao(Date criacao) {
-		this.criacao = criacao;
+	public void setCompra(Date criacao) {
+		this.compra = criacao;
 	}
 	public Date getRegistro() {
 		return registro;
@@ -122,7 +130,7 @@ public class Livro {
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(autor, categoria, criacao, editora, id, image, notas, registro, subCategoria, titulo);
+		return Objects.hash(autor, categoria, compra, editora, id, image, notas, registro, subCategoria, titulo);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -134,7 +142,7 @@ public class Livro {
 			return false;
 		Livro other = (Livro) obj;
 		return Objects.equals(autor, other.autor) && Objects.equals(categoria, other.categoria)
-				&& Objects.equals(criacao, other.criacao) && Objects.equals(editora, other.editora) && id == other.id
+				&& Objects.equals(compra, other.compra) && Objects.equals(editora, other.editora) && id == other.id
 				&& Objects.equals(image, other.image) && Objects.equals(notas, other.notas)
 				&& Objects.equals(registro, other.registro) && Objects.equals(subCategoria, other.subCategoria)
 				&& Objects.equals(titulo, other.titulo);
@@ -142,8 +150,18 @@ public class Livro {
 	@Override
 	public String toString() {
 		return "Livro [id=" + id + ", titulo=" + titulo + ", autor=" + autor + ", editora=" + editora + ", categoria="
-				+ categoria + ", subCategoria=" + subCategoria + ", notas=" + notas + ", image=" + image + ", criacao="
-				+ criacao + ", registro=" + registro + "]";
+				+ categoria + ", subCategoria=" + subCategoria + ", notas=" + notas + ", image=" + image + ", compra="
+				+ compra + ", registro=" + registro + "]";
+	}
+
+
+	public String getColecao() {
+		return colecao;
+	}
+
+
+	public void setColecao(String colecao) {
+		this.colecao = colecao;
 	}
 	
 	

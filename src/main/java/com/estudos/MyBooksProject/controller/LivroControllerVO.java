@@ -15,7 +15,7 @@ import com.estudos.MyBooksProject.service.LivroServiceVO;
 
 
 @RestController
-@RequestMapping("/LivroVO")
+@RequestMapping("/livroVO")
 public class LivroControllerVO {
 	
 	@Autowired

@@ -9,7 +9,6 @@ public class LivroVO implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 		private long id;
-		
 		private String titulo;
 		private String autor;
 		private String editora;
@@ -17,13 +16,14 @@ public class LivroVO implements Serializable{
 		private String subCategoria;
 		private String notas;
 		private String image;
-		private Date criacao;
+		private Date compra;
 		private Date registro;
+		private String colecao;
 		
 		public LivroVO() {}
 		
 		public LivroVO(String titulo, String autor, String editora, String categoria, String subCategoria,
-				String notas, String image, Date criacao, Date registro) {
+				String notas, String image, Date compra, Date registro,  String colecao) {
 			this.titulo = titulo;
 			this.autor = autor;
 			this.editora = editora;
@@ -31,8 +31,9 @@ public class LivroVO implements Serializable{
 			this.subCategoria = subCategoria;
 			this.notas = notas;
 			this.image = image;
-			this.criacao = criacao;
+			this.compra = compra;
 			this.registro = registro;
+			this.colecao= colecao;
 		}
 		public long getId() {
 			return id;
@@ -82,11 +83,11 @@ public class LivroVO implements Serializable{
 		public void setImage(String image) {
 			this.image = image;
 		}
-		public Date getCriacao() {
-			return criacao;
+		public Date getCompra() {
+			return compra;
 		}
-		public void setCriacao(Date criacao) {
-			this.criacao = criacao;
+		public void setCompra(Date criacao) {
+			this.compra = criacao;
 		}
 		public Date getRegistro() {
 			return registro;
@@ -96,7 +97,7 @@ public class LivroVO implements Serializable{
 		}
 		@Override
 		public int hashCode() {
-			return Objects.hash(autor, categoria, criacao, editora, id, image, notas, registro, subCategoria, titulo);
+			return Objects.hash(autor, categoria, compra, editora, id, image, notas, registro, subCategoria, titulo);
 		}
 		@Override
 		public boolean equals(Object obj) {
@@ -108,7 +109,7 @@ public class LivroVO implements Serializable{
 				return false;
 			LivroVO other = (LivroVO) obj;
 			return Objects.equals(autor, other.autor) && Objects.equals(categoria, other.categoria)
-					&& Objects.equals(criacao, other.criacao) && Objects.equals(editora, other.editora)
+					&& Objects.equals(compra, other.compra) && Objects.equals(editora, other.editora)
 					&& id == other.id && Objects.equals(image, other.image) && Objects.equals(notas, other.notas)
 					&& Objects.equals(registro, other.registro) && Objects.equals(subCategoria, other.subCategoria)
 					&& Objects.equals(titulo, other.titulo);
@@ -117,7 +118,15 @@ public class LivroVO implements Serializable{
 		public String toString() {
 			return "LivroVO [id=" + id + ", titulo=" + titulo + ", autor=" + autor + ", editora=" + editora
 					+ ", categoria=" + categoria + ", subCategoria=" + subCategoria + ", notas=" + notas + ", image="
-					+ image + ", criacao=" + criacao + ", registro=" + registro + "]";
+					+ image + ", compra=" + compra + ", registro=" + registro + "]";
+		}
+
+		public String getColecao() {
+			return colecao;
+		}
+
+		public void setColecao(String colecao) {
+			this.colecao = colecao;
 		}
 		
 		
