@@ -3,7 +3,6 @@ package com.estudos.MyBooksProject.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,36 +10,47 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.estudos.MyBooksProject.entity.LivroVO;
 import com.estudos.MyBooksProject.service.LivroServiceVO;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+
+
 @RestController
-@RequestMapping("/livroVO")
+@RequestMapping("/api/livro/v2")
 public class LivroControllerVO {
 
 	@Autowired
 	private LivroServiceVO service;
 
-	@PostMapping
-	public LivroVO create(@RequestBody LivroVO LivroVO) {
+	@PostMapping(produces = { "application/json", "application/xml","application/x-yaml"},
+				 consumes = { "application/json", "application/xml","application/x-yaml"})
+	public LivroVO  reate(@RequestBody LivroVO LivroVO) {
 		return service.create(LivroVO);
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping(value ="/{id}", produces = { "application/json", "application/xml","application/x-yaml"})
 	public LivroVO findById(@PathVariable("id") long id) {
-		return service.findById(id);
-
+		LivroVO livroVO= service.findById(id);
+		livroVO.add(linkTo( methodOn(LivroControllerVO.class)
+				.findById(id)).withSelfRel() );
+				 return livroVO;
 	}
 
-	@GetMapping
+	@GetMapping(produces = { "application/json", "application/xml","application/x-yaml"})
 	public List<LivroVO> findAll() {
-		return service.findAll();
+		List<LivroVO> livrosVO= service.findAll();
+		livrosVO.stream()
+		.forEach(l -> l.add( linkTo(methodOn(LivroControllerVO.class)
+				.findById(l.getKey() )).withSelfRel()));
+				 return livrosVO;
 	}
 
-	@PutMapping
+	@PutMapping(produces = { "application/json", "application/xml","application/x-yaml"},
+				consumes = { "application/json", "application/xml","application/x-yaml"})
 	public LivroVO update(@RequestBody LivroVO LivroVO) {
 		return service.update(LivroVO);
 	}

@@ -52,7 +52,7 @@ public class LivroServiceVO implements Serializable{
 	}
 	public LivroVO update(LivroVO livroVO) {
 // recebo um VO, mas uso o Id referente a esse objeto para procura meu Livro no repository
-		Livro entity= repository.findById(livroVO.getId()).orElseThrow();
+		Livro entity= repository.findById(livroVO.getKey()).orElseThrow();
 		// os dados do VO eu estarei inserindo no meu Lirvo(entity) 
 		entity.setTitulo(livroVO.getTitulo());
 		entity.setAutor(livroVO.getAutor());
