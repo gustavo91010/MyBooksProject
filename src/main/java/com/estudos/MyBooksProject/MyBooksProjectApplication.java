@@ -9,7 +9,7 @@ public class MyBooksProjectApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MyBooksProjectApplication.class, args);
 		
-		System.out.println("foi!, vai!!");
+		System.out.println("\nfoi!, vai!!");
 	}
 
 }
