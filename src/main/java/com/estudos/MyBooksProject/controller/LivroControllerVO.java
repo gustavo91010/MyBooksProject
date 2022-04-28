@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.estudos.MyBooksProject.entity.LivroVO;
 import com.estudos.MyBooksProject.service.LivroServiceVO;
 
+import io.swagger.annotations.ApiOperation;
+
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
@@ -25,13 +27,15 @@ public class LivroControllerVO {
 
 	@Autowired
 	private LivroServiceVO service;
-
+	
+	@ApiOperation(value = "Salva um novo livro do banco de dados" )
 	@PostMapping(produces = { "application/json", "application/xml","application/x-yaml"},
 				 consumes = { "application/json", "application/xml","application/x-yaml"})
-	public LivroVO  reate(@RequestBody LivroVO LivroVO) {
+	public LivroVO  create(@RequestBody LivroVO LivroVO) {
 		return service.create(LivroVO);
 	}
-
+	
+	@ApiOperation(value = "Encontra livro pelo id de registro" )
 	@GetMapping(value ="/{id}", produces = { "application/json", "application/xml","application/x-yaml"})
 	public LivroVO findById(@PathVariable("id") long id) {
 		LivroVO livroVO= service.findById(id);
@@ -40,6 +44,7 @@ public class LivroControllerVO {
 				 return livroVO;
 	}
 
+	@ApiOperation(value = "Chama todos os livros registrados" )
 	@GetMapping(produces = { "application/json", "application/xml","application/x-yaml"})
 	public List<LivroVO> findAll() {
 		List<LivroVO> livrosVO= service.findAll();
@@ -49,12 +54,15 @@ public class LivroControllerVO {
 				 return livrosVO;
 	}
 
+	
+	@ApiOperation(value = "Faz a alteração em algum campo do lovro registrado" )
 	@PutMapping(produces = { "application/json", "application/xml","application/x-yaml"},
 				consumes = { "application/json", "application/xml","application/x-yaml"})
 	public LivroVO update(@RequestBody LivroVO LivroVO) {
 		return service.update(LivroVO);
 	}
 
+	@ApiOperation(value = "Exclui o livro do registro" )
 	@DeleteMapping("/{id}")
 	public LivroVO delete(@PathVariable("id") long id) {
 		LivroVO livroVO = service.delete(id);
