@@ -1,8 +1,18 @@
 package com.estudos.MyBooksProject.controller;
 
-import java.util.List;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.PagedResources;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,15 +20,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.estudos.MyBooksProject.entity.LivroVO;
 import com.estudos.MyBooksProject.service.LivroServiceVO;
 
 import io.swagger.annotations.ApiOperation;
-
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 
 @RestController
@@ -27,6 +35,8 @@ public class LivroControllerVO {
 
 	@Autowired
 	private LivroServiceVO service;
+	@Autowired
+	private PagedResourcesAssembler<LivroVO> assembler;
 	
 	@ApiOperation(value = "Salva um novo livro do banco de dados" )
 	@PostMapping(produces = { "application/json", "application/xml","application/x-yaml"},
@@ -46,12 +56,28 @@ public class LivroControllerVO {
 
 	@ApiOperation(value = "Chama todos os livros registrados" )
 	@GetMapping(produces = { "application/json", "application/xml","application/x-yaml"})
-	public List<LivroVO> findAll() {
-		List<LivroVO> livrosVO= service.findAll();
+	public ResponseEntity<?> findAll(
+					
+								 @RequestParam(value = "page", defaultValue = "0")  int page,
+								 @RequestParam(value= "limit", defaultValue = "10")int limit,
+								 @RequestParam(value= "direction", defaultValue = "asc") String diretion) {
+		
+		Direction sorDirection= "desc".equalsIgnoreCase(diretion)? Direction.DESC : Direction.ASC;
+		Pageable pageable= PageRequest.of(page, limit, Sort.by(sorDirection, "titulo"));
+//		List<LivroVO> livrosVO= service.findAll(pageable).getContent();
+//		Livro<LivroVO> livro= service.findAll(pageable);
+		Page<LivroVO> livrosVO= service.findAll(pageable);
+		
 		livrosVO.stream()
 		.forEach(l -> l.add( linkTo(methodOn(LivroControllerVO.class)
 				.findById(l.getKey() )).withSelfRel()));
-				 return livrosVO;
+			
+		PagedResources<?> resource= assembler.toResource(livrosVO);		
+		return new ResponseEntity<>(resource, HttpStatus.OK);
+		
+		
+//				 http://localhost:8080/api/livro/v2?page=2&limit=3
+//				 http://localhost:8080/api/livro/v2?page=2&limit=3&direction=desc
 	}
 
 	

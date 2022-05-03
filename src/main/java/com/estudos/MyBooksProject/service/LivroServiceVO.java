@@ -1,9 +1,10 @@
 package com.estudos.MyBooksProject.service;
 
 import java.io.Serializable;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.estudos.MyBooksProject.converter.DozerConverter;
@@ -38,10 +39,19 @@ public class LivroServiceVO implements Serializable{
 		return DozerConverter.parseObject(livro, LivroVO.class);
 	}
 	
-	public List<LivroVO> findAll(){
-		return DozerConverter.parseListObjects(repository.findAll(), LivroVO.class);
+//	public List<LivroVO> findAll(Pageable pageable){
+//		List<Livro> entity= repository.findAll(pageable).getContent();
+//		return DozerConverter.parseListObjects(entity, LivroVO.class);
+//	}
+	public Page<LivroVO> findAll(Pageable pageable){
+		var entity= repository.findAll(pageable);
+		return entity.map(this::convertToLivro);
 	}
 	
+	private LivroVO convertToLivro(Livro livro) {
+
+		return DozerConverter.parseObject(livro, LivroVO.class);
+}
 	public LivroVO delete (long id) {
 		 Livro livro= repository.findById(id).orElseThrow();
 		
