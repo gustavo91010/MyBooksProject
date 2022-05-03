@@ -1,9 +1,14 @@
 package com.estudos.MyBooksProject.service;
 
 import java.io.Serializable;
+<<<<<<< HEAD
 import java.util.List;
+=======
+>>>>>>> 040bb186dce3143fdfcf6b8a3405fb49023ee539
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.estudos.MyBooksProject.converter.DozerConverter;
@@ -52,6 +57,7 @@ public class LivroServiceVO implements Serializable {
 		Livro livro = repository.findById(id).orElseThrow();
 		return DozerConverter.parseObject(livro, LivroVO.class);
 	}
+<<<<<<< HEAD
 
 	public List<LivroVO> findAll() {
 		return DozerConverter.parseListObjects(repository.findAll(), LivroVO.class);
@@ -64,12 +70,40 @@ public class LivroServiceVO implements Serializable {
 		livroVO = DozerConverter.parseObject(livro, LivroVO.class);
 		return livroVO;
 
+=======
+	
+//	public List<LivroVO> findAll(Pageable pageable){
+//		List<Livro> entity= repository.findAll(pageable).getContent();
+//		return DozerConverter.parseListObjects(entity, LivroVO.class);
+//	}
+	public Page<LivroVO> findAll(Pageable pageable){
+		var entity= repository.findAll(pageable);
+		return entity.map(this::convertToLivro);
+	}
+	
+	private LivroVO convertToLivro(Livro livro) {
+
+		return DozerConverter.parseObject(livro, LivroVO.class);
+}
+	public LivroVO delete (long id) {
+		 Livro livro= repository.findById(id).orElseThrow();
+		
+		 repository.delete(livro);
+		 livroVO= DozerConverter.parseObject(livro, LivroVO.class);
+		 return livroVO;
+		
+>>>>>>> 040bb186dce3143fdfcf6b8a3405fb49023ee539
 	}
 
 	public LivroVO update(LivroVO livroVO) {
 // recebo um VO, mas uso o Id referente a esse objeto para procura meu Livro no repository
+<<<<<<< HEAD
 		Livro entity = repository.findById(livroVO.getId()).orElseThrow();
 		// os dados do VO eu estarei inserindo no meu Lirvo(entity)
+=======
+		Livro entity= repository.findById(livroVO.getKey()).orElseThrow();
+		// os dados do VO eu estarei inserindo no meu Lirvo(entity) 
+>>>>>>> 040bb186dce3143fdfcf6b8a3405fb49023ee539
 		entity.setTitulo(livroVO.getTitulo());
 		entity.setAutor(livroVO.getAutor());
 		entity.setCategoria(livroVO.getCategoria());
@@ -79,6 +113,7 @@ public class LivroServiceVO implements Serializable {
 		entity.setEditora(livroVO.getEditora());
 		entity.setCompra(livroVO.getCompra());
 		entity.setRegistro(livroVO.getRegistro());
+		entity.setColecao(livroVO.getColecao());
 		// convertendo meu Lirvo(entity) para o VO
 		livroVO = DozerConverter.parseObject(repository.save(entity), LivroVO.class);
 
