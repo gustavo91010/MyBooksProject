@@ -16,6 +16,7 @@ public class LivroVO extends ResourceSupport implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 		private long id;
 		
 		private String titulo;
@@ -157,6 +158,8 @@ public class LivroVO extends ResourceSupport implements Serializable {
 		
 		
 =======
+=======
+>>>>>>> 040bb186dce3143fdfcf6b8a3405fb49023ee539
 	@Mapping("id")
 	@JsonProperty("id") // customizar o nome da coluna
 	private long key;
@@ -303,6 +306,9 @@ public class LivroVO extends ResourceSupport implements Serializable {
 				&& Objects.equals(subCategoria, other.subCategoria) && Objects.equals(titulo, other.titulo);
 	}
 	
+<<<<<<< HEAD
+>>>>>>> 040bb186dce3143fdfcf6b8a3405fb49023ee539
+=======
 >>>>>>> 040bb186dce3143fdfcf6b8a3405fb49023ee539
 
 }

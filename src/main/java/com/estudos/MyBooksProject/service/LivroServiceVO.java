@@ -2,7 +2,10 @@ package com.estudos.MyBooksProject.service;
 
 import java.io.Serializable;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.util.List;
+=======
+>>>>>>> 040bb186dce3143fdfcf6b8a3405fb49023ee539
 =======
 >>>>>>> 040bb186dce3143fdfcf6b8a3405fb49023ee539
 
@@ -58,9 +61,20 @@ public class LivroServiceVO implements Serializable {
 		return DozerConverter.parseObject(livro, LivroVO.class);
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 	public List<LivroVO> findAll() {
 		return DozerConverter.parseListObjects(repository.findAll(), LivroVO.class);
+=======
+	
+//	public List<LivroVO> findAll(Pageable pageable){
+//		List<Livro> entity= repository.findAll(pageable).getContent();
+//		return DozerConverter.parseListObjects(entity, LivroVO.class);
+//	}
+	public Page<LivroVO> findAll(Pageable pageable){
+		var entity= repository.findAll(pageable);
+		return entity.map(this::convertToLivro);
+>>>>>>> 040bb186dce3143fdfcf6b8a3405fb49023ee539
 	}
 
 	public LivroVO delete(long id) {
@@ -72,6 +86,7 @@ public class LivroServiceVO implements Serializable {
 
 =======
 	
+<<<<<<< HEAD
 //	public List<LivroVO> findAll(Pageable pageable){
 //		List<Livro> entity= repository.findAll(pageable).getContent();
 //		return DozerConverter.parseListObjects(entity, LivroVO.class);
@@ -81,6 +96,8 @@ public class LivroServiceVO implements Serializable {
 		return entity.map(this::convertToLivro);
 	}
 	
+=======
+>>>>>>> 040bb186dce3143fdfcf6b8a3405fb49023ee539
 	private LivroVO convertToLivro(Livro livro) {
 
 		return DozerConverter.parseObject(livro, LivroVO.class);
@@ -98,9 +115,12 @@ public class LivroServiceVO implements Serializable {
 	public LivroVO update(LivroVO livroVO) {
 // recebo um VO, mas uso o Id referente a esse objeto para procura meu Livro no repository
 <<<<<<< HEAD
+<<<<<<< HEAD
 		Livro entity = repository.findById(livroVO.getId()).orElseThrow();
 		// os dados do VO eu estarei inserindo no meu Lirvo(entity)
 =======
+=======
+>>>>>>> 040bb186dce3143fdfcf6b8a3405fb49023ee539
 		Livro entity= repository.findById(livroVO.getKey()).orElseThrow();
 		// os dados do VO eu estarei inserindo no meu Lirvo(entity) 
 >>>>>>> 040bb186dce3143fdfcf6b8a3405fb49023ee539
