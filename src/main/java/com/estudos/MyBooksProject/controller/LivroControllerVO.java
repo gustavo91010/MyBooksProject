@@ -3,6 +3,8 @@ package com.estudos.MyBooksProject.controller;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -53,6 +55,54 @@ public class LivroControllerVO {
 				.findById(id)).withSelfRel() );
 				 return livroVO;
 	}
+	@ApiOperation(value = "Encontra livro pelo Titulo " )
+	@GetMapping(value ="/titulo/{titulo}", produces = { "application/json", "application/xml","application/x-yaml"})
+	public LivroVO findByTitulo(@PathVariable("titulo") String titulo) {
+		LivroVO livroVO= service.findByTitulo(titulo);
+		
+		livroVO.add(linkTo( methodOn(LivroControllerVO.class)
+				.findByTitulo(titulo)).withSelfRel() );
+		return livroVO;
+	}
+	
+	@ApiOperation(value = "Encontra livro pelo autor " )
+	@GetMapping(value ="/autor/{autor}", produces = { "application/json", "application/xml","application/x-yaml"})
+	public List<LivroVO> findByAutor(@PathVariable("autor") String autor) {
+		List<LivroVO> livrosVO= service.findByAutor(autor);
+		
+		System.out.println("Tamanho da lista: "+livrosVO.size());
+		for(LivroVO item: livrosVO) {
+			System.out.println(item.getTitulo());
+		}
+		
+		for(int i= 0; i<livrosVO.size(); i++) {
+			
+			System.out.println("Controller entrada: "+livrosVO.get(i).getKey());
+			
+			
+		livrosVO.get(i).add(linkTo( methodOn(LivroControllerVO.class)
+				.findByAutor(autor)).withSelfRel() );
+		System.out.println("Controller saida: "+livrosVO.get(i).getKey());
+		}
+		
+		System.out.println("saida");
+		for(LivroVO item: livrosVO) {
+			System.out.println(item.getTitulo());
+		}
+		
+		return livrosVO;
+	}
+	
+//	@ApiOperation(value = "Encontra livro pelo autor " )
+//	@GetMapping(value ="/autor/{autor}", produces = { "application/json", "application/xml","application/x-yaml"})
+//	public LivroVO findByAutor(@PathVariable("autor") String autor) {
+//		LivroVO livroVO= service.findByAutor(autor);
+//		
+//		livroVO.add(linkTo( methodOn(LivroControllerVO.class)
+//				.findByAutor(autor)).withSelfRel() );
+//		return livroVO;
+//	}
+	
 
 	@ApiOperation(value = "Chama todos os livros registrados" )
 	@GetMapping(produces = { "application/json", "application/xml","application/x-yaml"})
@@ -64,8 +114,6 @@ public class LivroControllerVO {
 		
 		Direction sorDirection= "desc".equalsIgnoreCase(diretion)? Direction.DESC : Direction.ASC;
 		Pageable pageable= PageRequest.of(page, limit, Sort.by(sorDirection, "titulo"));
-//		List<LivroVO> livrosVO= service.findAll(pageable).getContent();
-//		Livro<LivroVO> livro= service.findAll(pageable);
 		Page<LivroVO> livrosVO= service.findAll(pageable);
 		
 		livrosVO.stream()
@@ -94,13 +142,5 @@ public class LivroControllerVO {
 		LivroVO livroVO = service.delete(id);
 		return livroVO;
 	}
-//	@RequestMapping(value = "/title/{title}",
-//			
-//			method = RequestMethod.GET,
-//			produces = MediaType.APPLICATION_JSON_VALUE)
-//	public LivroVO findByTitle(@PathVariable("titulo") String titulo) {
-//		LivroVO=service.findByTitle(titulo);
-//		return LivroVO;
-//	}
 
 }
