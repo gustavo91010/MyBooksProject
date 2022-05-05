@@ -46,27 +46,24 @@ public class LivroService implements Serializable {
 		entity.setTitulo(livro.getTitulo());
 		entity.setAutor(livro.getAutor());
 		entity.setCategoria(livro.getCategoria());
+		
 		entity.setSubCategoria(livro.getSubCategoria());
 		entity.setNotas(livro.getNotas());
 		entity.setImage(livro.getImage());
 		entity.setEditora(livro.getEditora());
-<<<<<<< HEAD
+		
 		entity.setCompra(livro.getCompra());
-=======
-		entity.setCriacao(livro.getCriacao());
->>>>>>> b0863e44b6a8928a52210f3062c9242543a5009d
+		entity.setColecao(livro.getColecao());
 		entity.setRegistro(livro.getRegistro());
 
 		return repository.save(entity);
 	}
 
 	public Livro findByTitle(String title) {
-//		String sql= " SELECT * FROM mybooksproject.livros where titulo= ? ";
 		livros = findAll();
 
 		for (Livro item : livros) {
 			if (item.getTitulo().equals(title)) {
-//				System.out.println(item.getTitulo());
 				livros.clear();
 				livros.add(item);
 			} else {
