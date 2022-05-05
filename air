@@ -1,0 +1,92 @@
+[33mcommit b0863e44b6a8928a52210f3062c9242543a5009d[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Merge: 63fdc15 cb2f9fd
+Author: Gustavo Paes <gustavo910@gmail.com>
+Date:   Wed May 4 15:28:29 2022 -0300
+
+    Refatorando os metodos findByAutor e findByTitulo para receber uma lista de objetos
+
+[33mcommit 63fdc159767f4731a48eacba81309b448cd118cc[m
+Author: Gustavo Paes <gustavo910@gmail.com>
+Date:   Wed May 4 15:27:26 2022 -0300
+
+    Refatorando os metodos findByAutor e findByTitulo para receber uma lista de objetos
+
+[33mcommit cb2f9fd12ea7a0a63296b57f3d3aecb2cad084a7[m
+Merge: edb451c 040bb18
+Author: Gustavo Paes <gustavo910@gmail.com>
+Date:   Tue May 3 23:15:12 2022 -0300
+
+    implementação dos metodos findByTitulo e findByAutor
+
+[33mcommit edb451c7856d5531b9dbc83e3d6d30bfab73ebd8[m
+Author: Gustavo Paes <gustavo910@gmail.com>
+Date:   Tue May 3 16:43:15 2022 -0300
+
+    tentando fazer o findByTitulo funcionar...
+
+[33mcommit 040bb186dce3143fdfcf6b8a3405fb49023ee539[m
+Merge: 14cba56 58ad834
+Author: Gustavo Paes <gustavo910@gmail.com>
+Date:   Mon May 2 23:56:16 2022 -0300
+
+    Merge branch 'main' of https://github.com/guga910/MyBooksProject
+
+[33mcommit 14cba56ce6a6a20e1a2ec48191dda65fc84a3553[m
+Author: Gustavo Paes <gustavo910@gmail.com>
+Date:   Mon May 2 23:48:31 2022 -0300
+
+    Adicionado dados ao banco de dados via migration, paginação, ordenação e HATEOAS as paginas
+
+[33mcommit 58ad834fdb3a8fed14fc2fcf24816866703ecf30[m
+Author: Gustavo Paes <86875985+guga910@users.noreply.github.com>
+Date:   Wed Apr 27 22:39:24 2022 -0300
+
+    Update README.md
+
+[33mcommit 6802bd322a9ddff389fd3a9911a04de216972aa2[m
+Author: Gustavo Paes <gustavo910@gmail.com>
+Date:   Wed Apr 27 22:37:46 2022 -0300
+
+    Implementação do swagger
+
+[33mcommit 6c41e9def6e6078deb537f5e8d6c5707aabcc0f9[m
+Author: Gustavo Paes <gustavo910@gmail.com>
+Date:   Fri Apr 22 00:13:34 2022 -0300
+
+    imlementação do versionamento de banco de dados via flyway
+
+[33mcommit 78c4073acdab6547fe8ecceb92c6681f10f52de9[m
+Author: Gustavo Paes <gustavo910@gmail.com>
+Date:   Thu Apr 21 22:31:13 2022 -0300
+
+     Implementação do padrao HATEOAS,e configuração para produzir objetos em yaml e xml
+
+[33mcommit 80a04bde41cdcf20b4aca39c0b28385fbbdb7654[m
+Author: Gustavo Paes <gustavo910@gmail.com>
+Date:   Sun Apr 17 00:01:44 2022 -0300
+
+    Simplificação das anotações na classe LivroVO
+
+[33mcommit db231531f11d843a4465b51befc6f9965adb51d9[m
+Author: Gustavo Paes <gustavo910@gmail.com>
+Date:   Sat Apr 16 23:31:30 2022 -0300
+
+    atuakização das classes Livro e LivroVO
+
+[33mcommit 11d724fc4f627ac30de96234334d8ec5d0940cd0[m
+Author: Gustavo Paes <86875985+guga910@users.noreply.github.com>
+Date:   Sat Apr 16 00:43:53 2022 -0300
+
+    Create README.md
+
+[33mcommit 5cc50f0ab19870a6e87ffde7ae8809b87363f294[m
+Author: Gustavo Paes <gustavo910@gmail.com>
+Date:   Sat Apr 16 00:38:52 2022 -0300
+
+    atyalizei a classe livro para utilizar o padrão Object Value com a ajuda do dozer
+
+[33mcommit 246e3ea3de36ac35ae2a9746293bca4258f60daa[m
+Author: Gustavo Paes <gustavo910@gmail.com>
+Date:   Fri Apr 15 22:53:48 2022 -0300
+
+    primeiro commit, springBoot versao basica
