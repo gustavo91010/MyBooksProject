@@ -10,7 +10,7 @@ import com.estudos.MyBooksProject.entity.Livro;
 @Repository
 public interface LivroRepository extends JpaRepository<Livro, Long>{
 
-	public Livro findByTitulo(String titulo);
+	public List<Livro> findByTitulo(String titulo);
 	public List<Livro> findByAutor(String autor);
 //	public Livro findByAutor(String autor);
 	

@@ -30,10 +30,10 @@ public class LivroServiceVO implements Serializable {
 
 	}
 
-	public LivroVO convertToLivro(String titulo) {
-		Livro livro= repository.findByTitulo(titulo);
-		return DozerConverter.parseObject(livro, LivroVO.class);
-	}
+//	public LivroVO convertToLivro(String titulo) {
+//		Livro livro= repository.findByTitulo(titulo);
+//		return DozerConverter.parseObject(livro, LivroVO.class);
+//	}
 
 
 
@@ -45,56 +45,79 @@ public class LivroServiceVO implements Serializable {
 	public List<LivroVO> findAll() {
 		return DozerConverter.parseListObjects(repository.findAll(), LivroVO.class);
 	}
-		public LivroVO findByTitulo(String titulo) {
-	Livro	livro= repository.findByTitulo(titulo);
-	LivroVO livroVO = new LivroVO();
-		
-		livroVO.setKey(livro.getId());
-		livroVO.setTitulo(livro.getTitulo());
-		livroVO.setAutor(livro.getAutor());
-		livroVO.setEditora(livro.getEditora());
-		
-		livroVO.setCategoria(livro.getCategoria());
-		livroVO.setSubCategoria(livro.getSubCategoria());
-		livroVO.setNotas(livro.getNotas());
-		livroVO.setImage(livro.getImage());
-		
-		livroVO.setCompra(livro.getCompra());
-		livroVO.setRegistro(livro.getRegistro());
-		livroVO.setColecao(livro.getColecao());
-		return livroVO;
-	}
 	
+//		public LivroVO findByTitulo(String titulo) {
+//	Livro	livro= repository.findByTitulo(titulo);
+//	LivroVO livroVO = new LivroVO();
+//		
+//		livroVO.setKey(livro.getId());
+//		livroVO.setTitulo(livro.getTitulo());
+//		livroVO.setAutor(livro.getAutor());
+//		livroVO.setEditora(livro.getEditora());
+//		
+//		livroVO.setCategoria(livro.getCategoria());
+//		livroVO.setSubCategoria(livro.getSubCategoria());
+//		livroVO.setNotas(livro.getNotas());
+//		livroVO.setImage(livro.getImage());
+//		
+//		livroVO.setCompra(livro.getCompra());
+//		livroVO.setRegistro(livro.getRegistro());
+//		livroVO.setColecao(livro.getColecao());
+//		return livroVO;
+//	}
+	
+	public List<LivroVO> findByTitulo(String titulo) {
+		List<Livro>	livros= repository.findByTitulo(titulo);
+		
+		List<LivroVO> livrosVO2= new ArrayList<>();
+		
+		for(int i=0; i< livros.size(); i++) {
+			LivroVO livroVO1= new LivroVO();
+			
+			livroVO1.setKey(livros.get(i).getId());
+			livroVO1.setTitulo(livros.get(i).getTitulo());
+			livroVO1.setAutor(livros.get(i).getAutor());
+			livroVO1.setEditora(livros.get(i).getEditora());
+			livroVO1.setCategoria(livros.get(i).getCategoria());
+			livroVO1.setSubCategoria(livros.get(i).getSubCategoria());
+			livroVO1.setNotas(livros.get(i).getNotas());
+			livroVO1.setImage(livros.get(i).getImage());
+			livroVO1.setCompra(livros.get(i).getCompra());
+			livroVO1.setRegistro(livros.get(i).getRegistro());
+			livroVO1.setColecao(livros.get(i).getColecao());
+			
+			livrosVO2.add(livroVO1);
+			
+		}
+		return livrosVO2;
+	}
 	public List<LivroVO> findByAutor(String autor) {
 		List<Livro>	livros= repository.findByAutor(autor);
-		List<LivroVO> livrosVO= new ArrayList<>();
-		LivroVO livroVO= new LivroVO();
+		
+		List<LivroVO> livrosVO2= new ArrayList<>();
+		
 		for(int i=0; i< livros.size(); i++) {
-					System.out.println("Entrada service: "+livros.get(i).getId());
+			LivroVO livroVO1= new LivroVO();
 					
-		livroVO.setKey(livros.get(i).getId());
-		livroVO.setTitulo(livros.get(i).getTitulo());
-		livroVO.setAutor(livros.get(i).getAutor());
-		livroVO.setEditora(livros.get(i).getEditora());
-		livroVO.setCategoria(livros.get(i).getCategoria());
-		livroVO.setSubCategoria(livros.get(i).getSubCategoria());
-		livroVO.setNotas(livros.get(i).getNotas());
-		livroVO.setImage(livros.get(i).getImage());
-		livroVO.setCompra(livros.get(i).getCompra());
-		livroVO.setRegistro(livros.get(i).getRegistro());
-		livroVO.setColecao(livros.get(i).getColecao());
+		livroVO1.setKey(livros.get(i).getId());
+		livroVO1.setTitulo(livros.get(i).getTitulo());
+		livroVO1.setAutor(livros.get(i).getAutor());
+		livroVO1.setEditora(livros.get(i).getEditora());
+		livroVO1.setCategoria(livros.get(i).getCategoria());
+		livroVO1.setSubCategoria(livros.get(i).getSubCategoria());
+		livroVO1.setNotas(livros.get(i).getNotas());
+		livroVO1.setImage(livros.get(i).getImage());
+		livroVO1.setCompra(livros.get(i).getCompra());
+		livroVO1.setRegistro(livros.get(i).getRegistro());
+		livroVO1.setColecao(livros.get(i).getColecao());
 		
-		livrosVO.add(livroVO);
-			System.out.println("Apos a lista service: "+livrosVO.get(i).getKey()+" "+livrosVO.get(i).getTitulo()+"\n");
+		livrosVO2.add(livroVO1);
 		
 		}
-		
-		for(int i=0; i< livros.size(); i++) {
-		System.out.println("Antes do return: "+livrosVO.get(i).getKey()+" "+livrosVO.get(i).getTitulo()+"\n");
-		}
-		
-		return livrosVO;
+		return livrosVO2;
 	}
+	
+	
 	public Page<LivroVO> findAll(Pageable pageable) {
 		var entity = repository.findAll(pageable);
 		return entity.map(this::convertToLivro);
@@ -103,6 +126,32 @@ public class LivroServiceVO implements Serializable {
 	private LivroVO convertToLivro(Livro livro) {
 
 		return DozerConverter.parseObject(livro, LivroVO.class);
+	}
+
+
+	public LivroVO update(LivroVO livroVO) {
+		Livro livro= repository.findById(livroVO.getKey()).orElseThrow();
+		livro.setId(livroVO.getKey());
+		livro.setTitulo(livroVO.getTitulo());
+		livro.setEditora(livroVO.getEditora());
+		livro.setCategoria(livroVO.getCategoria());
+		livro.setSubCategoria(livroVO.getSubCategoria());
+		livro.setImage(livroVO.getImage());
+		livro.setNotas(livroVO.getNotas());
+		livro.setAutor(livroVO.getAutor());
+		livro.setCompra(livroVO.getCompra());
+		livro.setRegistro(livroVO.getRegistro());
+		livro.setColecao(livroVO.getColecao());
+		repository.save(livro);
+
+		return DozerConverter.parseObject(livro, LivroVO.class);
+	}
+
+	public LivroVO delete(long id) {
+		Livro livro= repository.findById(id).orElseThrow();
+		repository.delete(livro);
+		return DozerConverter.parseObject(livro, LivroVO.class);
+
 	}
 
 
