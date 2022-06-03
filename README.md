@@ -22,14 +22,13 @@ Também utilizei o Migration para popular o banco de dados.
 
 ## Instruções:
 
+Caso esteja usando o eclipse, deve-se importar o projeto usando a opção "import maven project".
+
 Para ter acesso a documentação do projeto, basta executar a classe MyBooksProjectApplication e depois, no seu navegador digitar o endereço http://localhost:8080/swagger-ui.html
 
 
 
 ## Estrutura do projeto:
-
-Caso esteja usando o eclipse, deve-se importar o projeto usando a opção "import maven project".
-
 
 Nosso projeto tem a estrutura projeto Value objec, que tem como intuito deixar as informações de nossa classe preservada, como estrutura de nossas tabelas no banco e utilizar uma classe intermediaria que sera responsável pela exposição de nossos dados. 
 
