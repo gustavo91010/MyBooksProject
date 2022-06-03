@@ -1,11 +1,3 @@
-logoCorrecao.pt
-English
-InícioSobrePrivacidadeContacto
-
-Resultado
-Tipo e número de erros encontrados:
-Ortográficos (62)Outro (3)REGISTER (4)Gramatical (3)Tipográficos (15)Espaçamento (2)
-Copy
 # MyBooksProject
 
 
