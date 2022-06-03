@@ -8,6 +8,7 @@ Uma aplicação para fazer o controle e registro de livros em uma biblioteca.
 
 - Linguagem java;
 - Maven;
+- MySql
 - JUnit 4;
 - Padrão de projeto VO
 - Repository;
