@@ -17,9 +17,14 @@ Uma aplicação para fazer o controle e registro de livros em uma biblioteca.
 
 Utilizei o framework swagger para fornecer a documentação de minha aplicação e ajudar na descrição, consumo e visualização dos serviços.
 
-Para ter acesso a esta documentação, basta executar a classe MyBooksProjectApplication e depois, no seu navegador digitar o endereço http://localhost:8080/swagger-ui.html
-
 Também utilizei o Migration para popular o banco de dados.
+
+
+## Instruções:
+
+Para ter acesso a documentação do projeto, basta executar a classe MyBooksProjectApplication e depois, no seu navegador digitar o endereço http://localhost:8080/swagger-ui.html
+
+
 
 ## Estrutura do projeto:
 
@@ -35,17 +40,17 @@ No pacote config, temos as classes que fazem a configuração para receber dados
 Na pacote controller, temos a Classe LivroControle, sendo a versão anterior a refatoração para o padrão de projeto VO e a classe LivroControllerVO que é a responsável por receber as requisições via http e manipular os métodos que estão na classe service, ela também esta configurada para receber ou produzir dados no formato json, xml e x-yaml quando necessário.
 	Os métodos são:
 
-- create. Salvar um novo livro do banco de dados.
-- findById. Encontrar livro pelo id de registro.
-- findByTitulo. Encontrar livro pelo título.
-- findByAutor. Encontrar livro pelo autor.
-- findAll. Chamar todos os livros registrados.
-- update. Fazer uma alteração em algum campo do livro registrado.
-- delere. Excluir o livro do registro.
+- create: Salvar um novo livro do banco de dados.
+- findById: Encontrar livro pelo id de registro.
+- findByTitulo: Encontrar livro pelo título.
+- findByAutor: Encontrar livro pelo autor.
+- findAll: Chamar todos os livros registrados.
+- update: Fazer uma alteração em algum campo do livro registrado.
+- delere: Excluir o livro do registro.
 
 Eu utilizei a anotação @ApiOperation para fazer a identificação dos métodos na interface de visualização.
-	Nos métodos que retornam algum produto, foi implementado do componente HATEOAS da arquitetura Rest, para fornecer o endpoint deste produto.
-	No método findAll, que tem como objetivo mostrar todos os produtos, foi configurado para mostrar os resultados paginados (com o solicitante definindo a quantidade de itens por página e qual pagina sera mostrada) e ordenado (ascendente ou decrescente), caso o usuário não faça nenhuma seleção, um valor padrão foi estabelecido. 
+Nos métodos que retornam algum produto, foi implementado o componente HATEOAS da arquitetura Rest, para fornecer o endpoint deste produto.
+No método findAll, que tem como objetivo mostrar todos os produtos, foi configurado para mostrar os resultados paginados (com o solicitante definindo a quantidade de itens por página e qual pagina sera mostrada) e ordenado (ascendente ou decrescente), caso o usuário não faça nenhuma seleção, um valor padrão foi estabelecido. 
 
 No pacote converter, temos a classe DozerConverter que é responsável por converter as classes entity em VO e VO em entity e a classe YanJacksonHttpMessageConverter que fornece as respostas no modelo YAML.
 
