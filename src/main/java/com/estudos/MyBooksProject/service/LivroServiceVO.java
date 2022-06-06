@@ -30,11 +30,6 @@ public class LivroServiceVO implements Serializable {
 
 	}
 
-//	public LivroVO convertToLivro(String titulo) {
-//		Livro livro= repository.findByTitulo(titulo);
-//		return DozerConverter.parseObject(livro, LivroVO.class);
-//	}
-
 
 
 	public LivroVO findById(long id) {
@@ -42,29 +37,8 @@ public class LivroServiceVO implements Serializable {
 		return DozerConverter.parseObject(livro, LivroVO.class);
 	}
 
-	public List<LivroVO> findAll() {
-		return DozerConverter.parseListObjects(repository.findAll(), LivroVO.class);
-	}
 	
-//		public LivroVO findByTitulo(String titulo) {
-//	Livro	livro= repository.findByTitulo(titulo);
-//	LivroVO livroVO = new LivroVO();
-//		
-//		livroVO.setKey(livro.getId());
-//		livroVO.setTitulo(livro.getTitulo());
-//		livroVO.setAutor(livro.getAutor());
-//		livroVO.setEditora(livro.getEditora());
-//		
-//		livroVO.setCategoria(livro.getCategoria());
-//		livroVO.setSubCategoria(livro.getSubCategoria());
-//		livroVO.setNotas(livro.getNotas());
-//		livroVO.setImage(livro.getImage());
-//		
-//		livroVO.setCompra(livro.getCompra());
-//		livroVO.setRegistro(livro.getRegistro());
-//		livroVO.setColecao(livro.getColecao());
-//		return livroVO;
-//	}
+	
 	
 	public List<LivroVO> findByTitulo(String titulo) {
 		List<Livro>	livros= repository.findByTitulo(titulo);
@@ -98,6 +72,8 @@ public class LivroServiceVO implements Serializable {
 		
 		for(int i=0; i< livros.size(); i++) {
 			LivroVO livroVO1= new LivroVO();
+			
+			
 					
 		livroVO1.setKey(livros.get(i).getId());
 		livroVO1.setTitulo(livros.get(i).getTitulo());
@@ -121,6 +97,9 @@ public class LivroServiceVO implements Serializable {
 	public Page<LivroVO> findAll(Pageable pageable) {
 		var entity = repository.findAll(pageable);
 		return entity.map(this::convertToLivro);
+	}
+	public List<LivroVO> findAll() {
+		return DozerConverter.parseListObjects(repository.findAll(), LivroVO.class);
 	}
 
 	private LivroVO convertToLivro(Livro livro) {

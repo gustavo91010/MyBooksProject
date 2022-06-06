@@ -14,7 +14,8 @@
 	<artifactId>MyBooksProject</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>MyBooksProject</name>
-	<description>Progama que visa registrar livros e mostralos por categoria</description>
+	<description>Progama que visa registrar livros e mostralos por
+		categoria</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
@@ -44,7 +45,7 @@
 		<dependency>
 			<groupId>org.springframework.hateoas</groupId>
 			<artifactId>spring-hateoas</artifactId>
-			<!-- <version>0.25.1.RELEASE</version>  -->
+			<!-- <version>0.25.1.RELEASE</version> -->
 		</dependency>
 
 
@@ -73,31 +74,38 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+			<version>8.0.20</version>
 		</dependency>
+		<!-- coloquei o scope e a verssao para corris testes -->
+		<!-- Migration -->
 
-		<!--  Migration -->
-		
 		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
 		</dependency>
-		
-			<!-- for Swagger Endpoints support -->
+
+		<!-- for Swagger Endpoints support -->
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
 			<version>2.9.2</version>
 		</dependency>
-		
+
 		<!-- for Swagger UI support -->
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>2.9.2</version>
 		</dependency>
-		
-		
-		
+
+		<!-- H2 Database -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+		</dependency>
+
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

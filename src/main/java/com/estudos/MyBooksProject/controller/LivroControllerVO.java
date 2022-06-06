@@ -59,15 +59,6 @@ public class LivroControllerVO {
 				.findById(id)).withSelfRel() );
 				 return livroVO;
 	}
-//	@ApiOperation(value = "Encontra livro pelo Titulo " )
-//	@GetMapping(value ="/titulo/{titulo}", produces = { "application/json", "application/xml","application/x-yaml"})
-//	public LivroVO findByTitulo(@PathVariable("titulo") String titulo) {
-//		LivroVO livroVO= service.findByTitulo(titulo);
-//		
-//		livroVO.add(linkTo( methodOn(LivroControllerVO.class)
-//				.findByTitulo(titulo)).withSelfRel() );
-//		return livroVO;
-//	}
 	
 	@ApiOperation(value = "Encontra livro pelo titulo " )
 	@GetMapping(value ="/titulo/{titulo}", produces = { "application/json", "application/xml","application/x-yaml"})
@@ -104,8 +95,6 @@ public class LivroControllerVO {
 								 @RequestParam(value= "direction", defaultValue = "asc") String diretion) {
 		Direction sorDirection= "desc".equalsIgnoreCase(diretion)? Direction.DESC : Direction.ASC;
 		Pageable pageable= PageRequest.of(page, limit, Sort.by(sorDirection, "titulo"));
-//		List<LivroVO> livrosVO= service.findAll(pageable).getContent();
-//		Livro<LivroVO> livro= service.findAll(pageable);
 		Page<LivroVO> livrosVO= service.findAll(pageable);
 		
 		livrosVO.stream()
@@ -121,7 +110,7 @@ public class LivroControllerVO {
 	}
 
 
-	@ApiOperation(value = "Faz a alteração em algum campo do lovro registrado" )
+	@ApiOperation(value = "Faz a alteração em algum campo do livro registrado" )
 	@PutMapping(produces = { "application/json", "application/xml","application/x-yaml"},
 				consumes = { "application/json", "application/xml","application/x-yaml"})
 	public LivroVO update(@RequestBody LivroVO LivroVO) {
