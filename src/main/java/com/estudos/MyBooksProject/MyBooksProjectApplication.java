@@ -9,6 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableAutoConfiguration
 @ComponentScan
 public class MyBooksProjectApplication {
+//	http://localhost:8080/swagger-ui.html#/livro-controller-vo
 
 	public static void main(String[] args) {
 		SpringApplication.run(MyBooksProjectApplication.class, args);
