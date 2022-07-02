@@ -27,24 +27,25 @@ public class LivroServiceVO implements Serializable {
 	public LivroVO create(LivroVO livroVO) throws IsbnExceptions, LivroSemPaginaException {
 		Livro livro = new Livro();
 		livro = DozerConverter.parseObject(livroVO, Livro.class);
-		boolean isNumeric = livroVO.getIsbn().matches("[+-]?\\d*(\\.\\d+)?");
+
+		boolean isNumeric = livro.getIsbn().matches("[+-]?\\d*(\\.\\d+)?");
 
 		if (!isNumeric) {
 			throw new IsbnExceptions("ISBN nao pode conter letras");
 		}
 
-		if (livroVO.getIsbn().length() < 10) {
+		if (livro.getIsbn().length() < 10) {
 			throw new IsbnExceptions("ISBN tem que ter mais de 10 digitos.");
 		}
-		if (livroVO.getIsbn().length() > 13) {
+		if (livro.getIsbn().length() > 13) {
 			throw new IsbnExceptions("ISBN tem que ter menos de 13 digitos");
 		}
-		if (livroVO.getPaginas() < 1) {
+		if (livro.getPaginas() < 1) {
 			throw new LivroSemPaginaException("A quantidade de paginas deve ser superior a 0.");
 		}
+		repository.save(livro);
 
-		LivroVO vo = DozerConverter.parseObject(repository.save(livro), LivroVO.class);
-		return vo;
+		return livroVO;
 
 	}
 

@@ -1,11 +1,6 @@
 package com.estudos.MyBooksProject.service;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -14,7 +9,6 @@ import com.estudos.MyBooksProject.builder.LivroBuilder;
 import com.estudos.MyBooksProject.entity.LivroVO;
 import com.estudos.MyBooksProject.exceptions.IsbnExceptions;
 import com.estudos.MyBooksProject.exceptions.LivroSemPaginaException;
-import static org.hamcrest.CoreMatchers.is;
 
 public class LivroServiceVOTest {
 	private LivroVO livroVO = new LivroVO();
@@ -24,15 +18,6 @@ public class LivroServiceVOTest {
 	@Rule
 	public ExpectedException exception = ExpectedException.none();
 
-	@Before
-	public void before() {
-
-	}
-
-	@After
-	public void after() {
-
-	}
 
 	@Test(expected = IsbnExceptions.class) // Minha espectativa é que essa classe de erro seja chamada
 	public void naoDeveSalvarObjetoSeOIsbnTiverLetras() throws Exception {
