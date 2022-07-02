@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import com.estudos.MyBooksProject.converter.DozerConverter;
 import com.estudos.MyBooksProject.entity.Livro;
 import com.estudos.MyBooksProject.entity.LivroVO;
+import com.estudos.MyBooksProject.exceptions.IsbnExceptions;
+import com.estudos.MyBooksProject.exceptions.LivroSemPaginaException;
 import com.estudos.MyBooksProject.repository.LivroRepository;
 
 @Service
@@ -22,32 +24,44 @@ public class LivroServiceVO implements Serializable {
 	@Autowired
 	private LivroRepository repository;
 
+	public LivroVO create(LivroVO livroVO) throws IsbnExceptions, LivroSemPaginaException {
+		Livro livro = new Livro();
+		livro = DozerConverter.parseObject(livroVO, Livro.class);
 
-	public LivroVO create(LivroVO livroVO) {
-		Livro livro = DozerConverter.parseObject(livroVO, Livro.class);
-		LivroVO vo = DozerConverter.parseObject(repository.save(livro), LivroVO.class);
-		return vo;
+		boolean isNumeric = livro.getIsbn().matches("[+-]?\\d*(\\.\\d+)?");
+
+		if (!isNumeric) {
+			throw new IsbnExceptions("ISBN nao pode conter letras");
+		}
+
+		if (livro.getIsbn().length() < 10) {
+			throw new IsbnExceptions("ISBN tem que ter mais de 10 digitos.");
+		}
+		if (livro.getIsbn().length() > 13) {
+			throw new IsbnExceptions("ISBN tem que ter menos de 13 digitos");
+		}
+		if (livro.getPaginas() < 1) {
+			throw new LivroSemPaginaException("A quantidade de paginas deve ser superior a 0.");
+		}
+		repository.save(livro);
+
+		return livroVO;
 
 	}
-
-
 
 	public LivroVO findById(long id) {
 		Livro livro = repository.findById(id).orElseThrow();
 		return DozerConverter.parseObject(livro, LivroVO.class);
 	}
 
-	
-	
-	
 	public List<LivroVO> findByTitulo(String titulo) {
-		List<Livro>	livros= repository.findByTitulo(titulo);
-		
-		List<LivroVO> livrosVO2= new ArrayList<>();
-		
-		for(int i=0; i< livros.size(); i++) {
-			LivroVO livroVO1= new LivroVO();
-			
+		List<Livro> livros = repository.findByTitulo(titulo);
+
+		List<LivroVO> livrosVO2 = new ArrayList<>();
+
+		for (int i = 0; i < livros.size(); i++) {
+			LivroVO livroVO1 = new LivroVO();
+
 			livroVO1.setKey(livros.get(i).getId());
 			livroVO1.setTitulo(livros.get(i).getTitulo());
 			livroVO1.setAutor(livros.get(i).getAutor());
@@ -59,45 +73,44 @@ public class LivroServiceVO implements Serializable {
 			livroVO1.setCompra(livros.get(i).getCompra());
 			livroVO1.setRegistro(livros.get(i).getRegistro());
 			livroVO1.setColecao(livros.get(i).getColecao());
-			
+
 			livrosVO2.add(livroVO1);
-			
+
 		}
 		return livrosVO2;
 	}
+
 	public List<LivroVO> findByAutor(String autor) {
-		List<Livro>	livros= repository.findByAutor(autor);
-		
-		List<LivroVO> livrosVO2= new ArrayList<>();
-		
-		for(int i=0; i< livros.size(); i++) {
-			LivroVO livroVO1= new LivroVO();
-			
-			
-					
-		livroVO1.setKey(livros.get(i).getId());
-		livroVO1.setTitulo(livros.get(i).getTitulo());
-		livroVO1.setAutor(livros.get(i).getAutor());
-		livroVO1.setEditora(livros.get(i).getEditora());
-		livroVO1.setCategoria(livros.get(i).getCategoria());
-		livroVO1.setSubCategoria(livros.get(i).getSubCategoria());
-		livroVO1.setNotas(livros.get(i).getNotas());
-		livroVO1.setImage(livros.get(i).getImage());
-		livroVO1.setCompra(livros.get(i).getCompra());
-		livroVO1.setRegistro(livros.get(i).getRegistro());
-		livroVO1.setColecao(livros.get(i).getColecao());
-		
-		livrosVO2.add(livroVO1);
-		
+		List<Livro> livros = repository.findByAutor(autor);
+
+		List<LivroVO> livrosVO2 = new ArrayList<>();
+
+		for (int i = 0; i < livros.size(); i++) {
+			LivroVO livroVO1 = new LivroVO();
+
+			livroVO1.setKey(livros.get(i).getId());
+			livroVO1.setTitulo(livros.get(i).getTitulo());
+			livroVO1.setAutor(livros.get(i).getAutor());
+			livroVO1.setEditora(livros.get(i).getEditora());
+			livroVO1.setCategoria(livros.get(i).getCategoria());
+			livroVO1.setSubCategoria(livros.get(i).getSubCategoria());
+			livroVO1.setNotas(livros.get(i).getNotas());
+			livroVO1.setImage(livros.get(i).getImage());
+			livroVO1.setCompra(livros.get(i).getCompra());
+			livroVO1.setRegistro(livros.get(i).getRegistro());
+			livroVO1.setColecao(livros.get(i).getColecao());
+
+			livrosVO2.add(livroVO1);
+
 		}
 		return livrosVO2;
 	}
-	
-	
+
 	public Page<LivroVO> findAll(Pageable pageable) {
 		var entity = repository.findAll(pageable);
 		return entity.map(this::convertToLivro);
 	}
+
 	public List<LivroVO> findAll() {
 		return DozerConverter.parseListObjects(repository.findAll(), LivroVO.class);
 	}
@@ -107,9 +120,8 @@ public class LivroServiceVO implements Serializable {
 		return DozerConverter.parseObject(livro, LivroVO.class);
 	}
 
-
 	public LivroVO update(LivroVO livroVO) {
-		Livro livro= repository.findById(livroVO.getKey()).orElseThrow();
+		Livro livro = repository.findById(livroVO.getKey()).orElseThrow();
 		livro.setId(livroVO.getKey());
 		livro.setTitulo(livroVO.getTitulo());
 		livro.setEditora(livroVO.getEditora());
@@ -127,11 +139,10 @@ public class LivroServiceVO implements Serializable {
 	}
 
 	public LivroVO delete(long id) {
-		Livro livro= repository.findById(id).orElseThrow();
+		Livro livro = repository.findById(id).orElseThrow();
 		repository.delete(livro);
 		return DozerConverter.parseObject(livro, LivroVO.class);
 
 	}
-
 
 }

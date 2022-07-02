@@ -1,40 +1,66 @@
 package com.estudos.MyBooksProject.repository;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.List;
 
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import com.estudos.MyBooksProject.builder.LivroBuilder;
-import com.estudos.MyBooksProject.entity.Livro;
+import com.estudos.MyBooksProject.entity.LivroVO;
+import com.estudos.MyBooksProject.exceptions.IsbnExceptions;
+import com.estudos.MyBooksProject.exceptions.LivroSemPaginaException;
+import com.estudos.MyBooksProject.service.LivroServiceVO;
 
-
-@DataJpaTest
-//@SpringBootTest
 public class LivroRepositoryTest {
-	
-	@Autowired
-	private TestEntityManager entityManager;
-	
-	@Autowired
-	private LivroRepository repository;
-//	8:18
+	private LivroBuilder builder = new LivroBuilder();
+
+	private LivroVO livroVO = new LivroVO();
+
+	private LivroServiceVO service = new LivroServiceVO();
+
+	@Before
+	public void before() {
+		livroVO = builder.umLivroVO(1777);
+
+	}
+
+	@After
+	public void after() {
+		service.delete(livroVO.getKey());
+
+	}
+
 	@Test
-	public void deveEncontrarLivrosPeloAutor() {
-		LivroBuilder lb= new LivroBuilder();
-		
-		entityManager.persist(lb.umLivro(1));
-		entityManager.persist(lb.umLivro(2));
-		entityManager.persist(lb.umLivro(3));
+	public void deveSalvarUmLivro() throws IsbnExceptions, LivroSemPaginaException {
+		// Cenario:
+
+		List<LivroVO> antes = service.findAll();
+		System.out.println("antes: " + antes.size());
+
+		// Ação:
+		service.create(livroVO);
+		List<LivroVO> depois = service.findAll();
+		System.out.println("depois: " + depois.size());
+
+		// Verificação:
+		Assert.assertEquals((antes.size() + 1), depois.size());
+
+	}
 	
+	@Test
+	public void deveEncontarLivroPeloId() throws IsbnExceptions, LivroSemPaginaException {
+		service.create(livroVO);
+	LivroVO lt=	service.findById(livroVO.getKey());
 		
-		List<Livro> livros= repository.findByTitulo("1");
+		assertEquals("Autor: 1777",lt.getAutor() );
 		
-		Assert.assertEquals(1, livros.size());
+		
+//		service.findById(0)
+		
 	}
 
 }

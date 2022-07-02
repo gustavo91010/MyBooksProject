@@ -21,8 +21,11 @@ public class LivroService implements Serializable {
 	private List<Livro> livros = new ArrayList<>();
 
 	public Livro create(Livro livro) {
-		return repository.save(livro);
+		
 
+	
+
+		return repository.save(livro);
 	}
 
 	public Livro findById(long id) {

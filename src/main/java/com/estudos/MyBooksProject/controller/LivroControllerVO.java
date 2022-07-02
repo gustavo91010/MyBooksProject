@@ -27,6 +27,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.estudos.MyBooksProject.converter.DozerConverter;
 import com.estudos.MyBooksProject.entity.LivroVO;
+import com.estudos.MyBooksProject.exceptions.IsbnExceptions;
+import com.estudos.MyBooksProject.exceptions.LivroSemPaginaException;
 import com.estudos.MyBooksProject.service.LivroServiceVO;
 
 import io.swagger.annotations.ApiOperation;
@@ -47,7 +49,7 @@ public class LivroControllerVO {
 	@ApiOperation(value = "Salva um novo livro do banco de dados" )
 	@PostMapping(produces = { "application/json", "application/xml","application/x-yaml"},
 				 consumes = { "application/json", "application/xml","application/x-yaml"})
-	public LivroVO  create(@RequestBody LivroVO LivroVO) {
+	public LivroVO  create(@RequestBody LivroVO LivroVO) throws IsbnExceptions, LivroSemPaginaException {
 		return service.create(LivroVO);
 	}
 	
