@@ -3,6 +3,7 @@ package com.estudos.MyBooksProject.controller;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.estudos.MyBooksProject.converter.DozerConverter;
 import com.estudos.MyBooksProject.entity.LivroVO;
@@ -49,9 +51,16 @@ public class LivroControllerVO {
 	@ApiOperation(value = "Salva um novo livro do banco de dados" )
 	@PostMapping(produces = { "application/json", "application/xml","application/x-yaml"},
 				 consumes = { "application/json", "application/xml","application/x-yaml"})
-	public LivroVO  create(@RequestBody LivroVO LivroVO) throws IsbnExceptions, LivroSemPaginaException {
-		return service.create(LivroVO);
+	public ResponseEntity<LivroVO>  create(@RequestBody LivroVO LivroVO, UriComponentsBuilder uriBuilder) throws IsbnExceptions, LivroSemPaginaException {
+		 service.create(LivroVO);
+		 
+//		 URI uri= uriBuilder.path("/topicos/{id}").buildAndExpand(topico.getId()).toUri();
+//		 return ResponseEntity.created(uri).body(new TopicoDto(topico));
+		URI uri=uriBuilder.path("/api/livro/v2/{id}").buildAndExpand(LivroVO).toUri();
+		return ResponseEntity.created(uri).body(new LivroVO());
 	}
+	
+	
 	
 	@ApiOperation(value = "Encontra livro pelo id de registro" )
 	@GetMapping(value ="/{id}", produces = { "application/json", "application/xml","application/x-yaml"})

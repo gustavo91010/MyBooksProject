@@ -67,7 +67,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-			<version>2.6.6</version>
+			
 		</dependency>
 
 
@@ -75,7 +75,7 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
-			<version>8.0.20</version>
+		
 		</dependency>
 		<!-- coloquei o scope e a verssao para corris testes -->
 		<!-- Migration -->
