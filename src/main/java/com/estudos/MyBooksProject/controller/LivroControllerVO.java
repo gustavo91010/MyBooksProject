@@ -54,8 +54,6 @@ public class LivroControllerVO {
 	public ResponseEntity<LivroVO>  create(@RequestBody LivroVO LivroVO, UriComponentsBuilder uriBuilder) throws IsbnExceptions, LivroSemPaginaException {
 		 service.create(LivroVO);
 		 
-//		 URI uri= uriBuilder.path("/topicos/{id}").buildAndExpand(topico.getId()).toUri();
-//		 return ResponseEntity.created(uri).body(new TopicoDto(topico));
 		URI uri=uriBuilder.path("/api/livro/v2/{id}").buildAndExpand(LivroVO).toUri();
 		return ResponseEntity.created(uri).body(new LivroVO());
 	}
