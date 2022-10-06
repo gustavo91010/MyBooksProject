@@ -27,11 +27,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.estudos.MyBooksProject.From.SpecificationLivroFron;
 import com.estudos.MyBooksProject.converter.DozerConverter;
+import com.estudos.MyBooksProject.entity.Livro;
 import com.estudos.MyBooksProject.entity.LivroVO;
 import com.estudos.MyBooksProject.exceptions.IsbnExceptions;
 import com.estudos.MyBooksProject.exceptions.LivroSemPaginaException;
 import com.estudos.MyBooksProject.service.LivroServiceVO;
+import com.estudos.MyBooksProject.service.SpecificationLivroService;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -42,6 +45,9 @@ public class LivroControllerVO {
 
 	@Autowired
 	private LivroServiceVO service;
+	
+	@Autowired
+	private SpecificationLivroService specificationLivroService;
 
 	
 
@@ -133,6 +139,13 @@ public class LivroControllerVO {
 		
 		return livroVO;
 		
+	}
+	@ApiOperation(value = "busca o livro pelo autor, editora, titulo ou categoria" )
+	@GetMapping("/lirvosDinamico")
+	public List<LivroVO> buscarLirvosDinamico(@RequestBody SpecificationLivroFron specificationLivroFron){
+		List<Livro> livrosDinamico = specificationLivroService.buscarLirvosDinamico(specificationLivroFron);
+		
+		return DozerConverter.parseListObjects(livrosDinamico, LivroVO.class);
 	}
 
 }
