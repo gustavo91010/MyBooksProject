@@ -1,4 +1,0 @@
-ALTER TABLE `mybooksproject`.`livros` 
-CHANGE COLUMN `id` `id` BIGINT NOT NULL AUTO_INCREMENT,
-ADD COLUMN `isbn` VARCHAR(13) NULL AFTER `titulo`,
-ADD COLUMN `paginas` INT NULL AFTER `isbn`; ;

@@ -23,6 +23,9 @@ String nome= "nome";
 		livro.setSubCategoria("SubCategoria: " + ex);
 		livro.setNotas("notas: " + ex);
 		livro.setImage("img: " + ex);
+		livro.setIsbn("1234567890");
+		livro.setPaginas(5);
+		livro.setColecao("teste");
 		livro.setCompra(new Date());
 		livro.setRegistro(new Date());
 
@@ -42,7 +45,7 @@ String nome= "nome";
 		livro.setCompra(new Date());
 		livro.setRegistro(new Date());
 		livro.setIsbn("1234567890123");
-		livro.setPaginas(0);
+		livro.setPaginas(100);
 		LivroVO livroVO= DozerConverter.parseObject(livro, LivroVO.class);
 		return livroVO;
 	}

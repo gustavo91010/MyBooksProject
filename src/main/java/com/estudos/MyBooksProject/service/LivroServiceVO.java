@@ -12,9 +12,9 @@ import org.springframework.stereotype.Service;
 import com.estudos.MyBooksProject.converter.DozerConverter;
 import com.estudos.MyBooksProject.entity.Livro;
 import com.estudos.MyBooksProject.entity.LivroVO;
-import com.estudos.MyBooksProject.exceptions.IsbnExceptions;
-import com.estudos.MyBooksProject.exceptions.LivroSemPaginaException;
 import com.estudos.MyBooksProject.repository.LivroRepository;
+
+import validacao.VerificarValidacaoNovoLivro;
 
 @Service
 public class LivroServiceVO implements Serializable {
@@ -22,27 +22,31 @@ public class LivroServiceVO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private LivroRepository repository;
+	LivroRepository repository;
 
-	public LivroVO create(LivroVO livroVO) throws IsbnExceptions, LivroSemPaginaException {
+	public LivroVO create(LivroVO livroVO) throws Exception  {
+		
 		Livro livro = new Livro();
+		VerificarValidacaoNovoLivro verificarValidacaoNovoLivro= new VerificarValidacaoNovoLivro();
+		verificarValidacaoNovoLivro.validacaoNovoLivro(livroVO);
+		
 		livro = DozerConverter.parseObject(livroVO, Livro.class);
 
-		boolean isNumeric = livro.getIsbn().matches("[+-]?\\d*(\\.\\d+)?");
-
-		if (!isNumeric) {
-			throw new IsbnExceptions("ISBN nao pode conter letras");
-		}
-
-		if (livro.getIsbn().length() < 10) {
-			throw new IsbnExceptions("ISBN tem que ter mais de 10 digitos.");
-		}
-		if (livro.getIsbn().length() > 13) {
-			throw new IsbnExceptions("ISBN tem que ter menos de 13 digitos");
-		}
-		if (livro.getPaginas() < 1) {
-			throw new LivroSemPaginaException("A quantidade de paginas deve ser superior a 0.");
-		}
+//		boolean isNumeric = livro.getIsbn().matches("[+-]?\\d*(\\.\\d+)?");
+//
+//		if (!isNumeric) {
+//			throw new IsbnExceptions("ISBN nao pode conter letras");
+//		}
+//
+//		if (livro.getIsbn().length() < 10) {
+//			throw new IsbnExceptions("ISBN tem que ter mais de 10 digitos.");
+//		}
+//		if (livro.getIsbn().length() > 13) {
+//			throw new IsbnExceptions("ISBN tem que ter menos de 13 digitos");
+//		}
+//		if (livro.getPaginas() < 1) {
+//			throw new LivroSemPaginaException("A quantidade de paginas deve ser superior a 0.");
+//		}
 		repository.save(livro);
 
 		return livroVO;

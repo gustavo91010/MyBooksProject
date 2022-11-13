@@ -52,21 +52,20 @@ public class Livro {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Livro(String titulo, String autor, String editora, String categoria, String subCategoria, String isbn,
-			Integer paginas, String notas, String image, Date compra, Date registro, String colecao) {
+	public Livro(LivroVO livroVO) {
 		super();
-		this.titulo = titulo;
-		this.autor = autor;
-		this.editora = editora;
-		this.categoria = categoria;
-		this.subCategoria = subCategoria;
-		this.isbn = isbn;
-		this.paginas = paginas;
-		this.notas = notas;
-		this.image = image;
-		this.compra = compra;
-		this.registro = registro;
-		this.colecao = colecao;
+		this.titulo = livroVO.getTitulo();
+		this.autor = livroVO.getAutor();
+		this.editora = livroVO.getAutor();
+		this.categoria = livroVO.getAutor();
+		this.subCategoria = livroVO.getSubCategoria();
+		this.isbn = livroVO.getIsbn();
+		this.paginas = livroVO.getPaginas();
+		this.notas = livroVO.getNotas();
+		this.image = livroVO.getImage();
+		this.compra = livroVO.getCompra();
+		this.registro = livroVO.getRegistro();
+		this.colecao = livroVO.getColecao();
 	}
 
 	public long getId() {

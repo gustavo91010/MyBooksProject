@@ -181,4 +181,12 @@ public class LivroVO extends ResourceSupport implements Serializable {
 				&& Objects.equals(subCategoria, other.subCategoria) && Objects.equals(titulo, other.titulo);
 	}
 
+	@Override
+	public String toString() {
+		return "LivroVO [key=" + key + ", titulo=" + titulo + ", autor=" + autor + ", editora=" + editora
+				+ ", categoria=" + categoria + ", subCategoria=" + subCategoria + ", notas=" + notas + ", image="
+				+ image + ", compra=" + compra + ", registro=" + registro + ", colecao=" + colecao + ", isbn=" + isbn
+				+ ", paginas=" + paginas + "]";
+	}
+
 }

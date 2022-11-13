@@ -31,12 +31,11 @@ import com.estudos.MyBooksProject.From.SpecificationLivroFron;
 import com.estudos.MyBooksProject.converter.DozerConverter;
 import com.estudos.MyBooksProject.entity.Livro;
 import com.estudos.MyBooksProject.entity.LivroVO;
-import com.estudos.MyBooksProject.exceptions.IsbnExceptions;
-import com.estudos.MyBooksProject.exceptions.LivroSemPaginaException;
 import com.estudos.MyBooksProject.service.LivroServiceVO;
 import com.estudos.MyBooksProject.service.SpecificationLivroService;
 
 import io.swagger.annotations.ApiOperation;
+import validacao.ValidacaoNovoLivro;
 
 
 @RestController
@@ -57,7 +56,7 @@ public class LivroControllerVO {
 	@ApiOperation(value = "Salva um novo livro do banco de dados" )
 	@PostMapping(produces = { "application/json", "application/xml","application/x-yaml"},
 				 consumes = { "application/json", "application/xml","application/x-yaml"})
-	public ResponseEntity<LivroVO>  create(@RequestBody LivroVO LivroVO, UriComponentsBuilder uriBuilder) throws IsbnExceptions, LivroSemPaginaException {
+	public ResponseEntity<LivroVO>  create(@RequestBody LivroVO LivroVO, UriComponentsBuilder uriBuilder, ValidacaoNovoLivro validacao) throws Exception {
 		 service.create(LivroVO);
 		 
 		URI uri=uriBuilder.path("/api/livro/v2/{id}").buildAndExpand(LivroVO).toUri();
