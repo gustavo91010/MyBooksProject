@@ -11,7 +11,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.estudos.MyBooksProject.entity.Livro;
+import com.estudos.MyBooksProject.database.repository.LivroRepository;
+import com.estudos.MyBooksProject.domain.entity.Livro;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest

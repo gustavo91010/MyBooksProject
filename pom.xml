@@ -78,12 +78,12 @@
 		
 		</dependency>
 		<!-- coloquei o scope e a verssao para corris testes -->
-		<!-- Migration -->
+		<!-- Migration 
 
 		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
-		</dependency>
+		</dependency>-->
 
 		<!-- for Swagger Endpoints support -->
 		<dependency>

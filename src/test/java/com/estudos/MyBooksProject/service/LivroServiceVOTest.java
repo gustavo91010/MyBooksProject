@@ -10,16 +10,17 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import com.estudos.MyBooksProject.builder.LivroBuilder;
-import com.estudos.MyBooksProject.entity.Livro;
-import com.estudos.MyBooksProject.entity.LivroVO;
-import com.estudos.MyBooksProject.exceptions.IsbnExceptions;
-import com.estudos.MyBooksProject.exceptions.LivroSemPaginaException;
-import com.estudos.MyBooksProject.repository.LivroRepository;
+import com.estudos.MyBooksProject.api.LivroVO;
+import com.estudos.MyBooksProject.api.exceptions.IsbnExceptions;
+import com.estudos.MyBooksProject.api.exceptions.LivroSemPaginaException;
+import com.estudos.MyBooksProject.database.repository.LivroRepository;
+import com.estudos.MyBooksProject.domain.entity.Livro;
+import com.estudos.MyBooksProject.domain.service.LivroService;
+import com.estudos.MyBooksProject.utils.builder.LivroBuilder;
 
 public class LivroServiceVOTest {
 	@InjectMocks
-	private LivroServiceVO service = new LivroServiceVO();
+	private LivroService service = new LivroService();
 	@Mock
 	private LivroRepository repository;
 	@Before

@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.ContentNegotiationConfi
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.estudos.MyBooksProject.converter.YanJacksonHttpMessageConverter;
+import com.estudos.MyBooksProject.utils.converter.YanJacksonHttpMessageConverter;
 
 
 @Configuration
