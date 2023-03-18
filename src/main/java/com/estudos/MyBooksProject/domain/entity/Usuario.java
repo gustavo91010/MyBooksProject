@@ -23,6 +23,7 @@ public class Usuario {
 	private Long id;
 	private String nome;
 	private String email;
+	private String senha;
 	
 	private String telefone;
 	private LocalDate data_criacao;
@@ -79,6 +80,19 @@ public class Usuario {
 	public void setData_atualizacao(LocalDate data_atualizacao) {
 		this.data_atualizacao = data_atualizacao;
 	}
+	public String getSenha() {
+		return senha;
+	}
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+	public List<Perfil> getPerfis() {
+		return perfis;
+	}
+	public void setPerfis(List<Perfil> perfis) {
+		this.perfis = perfis;
+	}
+	
 	
 	
 	

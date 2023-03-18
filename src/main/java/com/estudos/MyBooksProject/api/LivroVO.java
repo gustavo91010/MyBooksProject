@@ -1,6 +1,7 @@
 package com.estudos.MyBooksProject.api;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -35,7 +36,7 @@ public class LivroVO extends ResourceSupport implements Serializable {
 	}
 
 	public LivroVO(String titulo, String autor, String editora, String categoria, String subCategoria, String notas,
-			String image, Date compra, Date registro, String colecao, String isbn, Integer paginas) {
+			String image, Date compra, String colecao, String isbn, Integer paginas) {
 		super();
 		this.titulo = titulo;
 		this.autor = autor;
@@ -45,7 +46,6 @@ public class LivroVO extends ResourceSupport implements Serializable {
 		this.notas = notas;
 		this.image = image;
 		this.compra = compra;
-		this.registro = registro;
 		this.colecao = colecao;
 		this.isbn = isbn;
 		this.paginas = paginas;

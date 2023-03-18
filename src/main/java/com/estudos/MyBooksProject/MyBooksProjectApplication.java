@@ -15,6 +15,7 @@ public class MyBooksProjectApplication {
 		SpringApplication.run(MyBooksProjectApplication.class, args);
 		
 		System.err.println("\nfoi!, vai!!");
+//		trabalhar na criaççao da classe estante
 	}
 
 }
