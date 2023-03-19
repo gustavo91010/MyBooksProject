@@ -28,6 +28,9 @@ public class Usuario {
 	private String telefone;
 	private LocalDate data_criacao;
 	private LocalDate data_atualizacao;
+	private boolean ativo;
+	private LocalDate data_expiracao;
+	private String token;
 	@ManyToMany
 	@JoinTable(name = "usuario_perfil",
 		joinColumns = @JoinColumn(name = "usuario_id"),
@@ -92,6 +95,25 @@ public class Usuario {
 	public void setPerfis(List<Perfil> perfis) {
 		this.perfis = perfis;
 	}
+	public boolean isAtivo() {
+		return ativo;
+	}
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
+	}
+	public LocalDate getData_expiracao() {
+		return data_expiracao;
+	}
+	public void setData_expiracao(LocalDate data_expiracao) {
+		this.data_expiracao = data_expiracao;
+	}
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
+	}
+	
 	
 	
 	

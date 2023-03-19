@@ -2,31 +2,86 @@ package com.estudos.MyBooksProject.domain.service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.estudos.MyBooksProject.api.exceptions.UsuarioNaoEncontradoException;
+import com.estudos.MyBooksProject.config.seguranca.DetalhesUsuarioImpl;
+import com.estudos.MyBooksProject.config.seguranca.DetalhesUsuarioService;
+import com.estudos.MyBooksProject.config.seguranca.jwt.JwtUtil;
 import com.estudos.MyBooksProject.database.repository.UsuarioRepository;
 import com.estudos.MyBooksProject.domain.entity.EPerfis;
 import com.estudos.MyBooksProject.domain.entity.Perfil;
 import com.estudos.MyBooksProject.domain.entity.Usuario;
-import com.estudos.MyBooksProject.utils.validacao.usuario.Email;
-import com.estudos.MyBooksProject.utils.validacao.usuario.Telefone;
+import com.estudos.MyBooksProject.domain.execao.MensagemExcecao;
+import com.estudos.MyBooksProject.domain.service.dto.LoginDTO;
+import com.estudos.MyBooksProject.domain.service.dto.LoginResponse;
+import com.estudos.MyBooksProject.domain.service.dto.RegistrarUsuarioDto;
 
 @Service
 public class UsuarioService {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	@Autowired
+	PasswordEncoder encoder;
+	@Autowired
+	private JwtUtil jwtUtil;
+	@Autowired
+	private DetalhesUsuarioService detalhesUsuarioService;
+	@Autowired
+	AuthenticationManager authenticationManager;
 
-	public Usuario registar(String nome, String emial, String numero) {
+//	public Usuario registar(String nome,String senha, String emial, String numero) {
+	public Usuario registar(RegistrarUsuarioDto registrarUsuarioDto) {
 
-		Usuario usuario = usuarioFactor( nome,  emial,  numero);
+		// Verificando se existe um user
+		Optional<Usuario> usuarioExiste = usuarioRepository.findByNome(registrarUsuarioDto.getNome());
+		if (usuarioExiste.isPresent()) {
+			throw new MensagemExcecao("Nome já cadastrado!");
+		}
+		// Codificando a senha:
+		String senhaCodificada = encoder.encode(registrarUsuarioDto.getSenha());
+
+		Usuario usuario = usuarioFactor(registrarUsuarioDto.getNome(), senhaCodificada, registrarUsuarioDto.getEmial(),
+				registrarUsuarioDto.getNumero());
 		Usuario usuarioRegistrado = usuarioRepository.save(usuario);
 
 		return usuarioRegistrado;
 
+	}
+
+	public LoginResponse login(LoginDTO loginDTO) {
+		// Verificando se existe um user
+		Usuario usuarioExiste = usuarioRepository.findByEmail(loginDTO.getEmail())
+				.orElseThrow(() -> new MensagemExcecao("Nome / Senha  inválido"));
+
+		// checabdo a senha:
+		if (encoder.matches(loginDTO.getSenha(), usuarioExiste.getSenha())) {
+			throw new BadCredentialsException("Nome / Senha  inválido");
+		}
+		
+		// Fase de autenticação:
+		
+		jwtUtil = new JwtUtil();
+		
+		DetalhesUsuarioImpl userDetails = detalhesUsuarioService.loadUserByUsername(loginDTO.getEmail());
+		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+				userDetails, loginDTO.getSenha(), userDetails.getAuthorities());
+
+		Authentication authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+
+		String jwt = jwtUtil.geracaoJwtToken(authentication);
+
+
+		return null;
 	}
 
 	public Usuario buscarPorId(Long id) {
@@ -72,17 +127,20 @@ public class UsuarioService {
 		usuarioRepository.deleteById(id);
 	}
 
-	public Usuario usuarioFactor(String nome, String emial, String numero) {
+	public Usuario usuarioFactor(String nome, String senha, String emial, String numero) {
 
 		// criar im metodo para destrinchar o ddd do numero;
 
 		Usuario usuario = new Usuario();
+		usuario.setSenha(senha);
 		usuario.setData_criacao(LocalDate.now());
 		usuario.setEmail(emial);
-		usuario.setTelefone(numero);
-		Perfil perfil = new Perfil();
-		perfil.setPerfil(EPerfis.AMIGOS);
-		usuario.addPefil(perfil);
+//		usuario.setTelefone(numero);
+
+		Perfil visitante = new Perfil();
+		visitante.setPerfil(EPerfis.VISITANTE);
+
+		usuario.addPefil(visitante);
 
 		return usuario;
 	}
@@ -104,6 +162,13 @@ public class UsuarioService {
 	protected Usuario atribuirPerfilAmigos(Usuario usuario) {
 		Perfil perfil = new Perfil();
 		perfil.setPerfil(EPerfis.AMIGOS);
+		usuario.getPefis().add(perfil);
+		return usuario;
+	}
+
+	protected Usuario atribuirPerfilVisitante(Usuario usuario) {
+		Perfil perfil = new Perfil();
+		perfil.setPerfil(EPerfis.VISITANTE);
 		usuario.getPefis().add(perfil);
 		return usuario;
 	}

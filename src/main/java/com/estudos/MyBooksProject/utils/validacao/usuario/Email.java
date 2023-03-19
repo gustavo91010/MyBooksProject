@@ -1,9 +1,5 @@
 package com.estudos.MyBooksProject.utils.validacao.usuario;
 
-import javax.persistence.Column;
-
-import org.hibernate.annotations.Type;
-
 public class Email {
 	
 	private String endereco;
